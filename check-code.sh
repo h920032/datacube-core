@@ -4,7 +4,7 @@
 set -eu
 set -x
 
-[ -n "${GDAL_DATA}" ] || {
+[ -n "${GDAL_DATA:-}" ] || {
    export GDAL_DATA=$(gdal-config --datadir)
 }
 
