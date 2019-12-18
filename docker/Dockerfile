@@ -97,8 +97,11 @@ COPY assets/env-build-tool /usr/local/bin/
 # build environment with all dependencies of datacube but no datacube
 RUN find /wheels/ -type f -name "*whl" > /tmp/reqs.txt \
 # make env root:users with write permissions for group
-  && (umask 002 && env-build-tool new /tmp/reqs.txt /wheels /env) \
-  && chown root:users -R /env
+  && (umask 002 \
+  && mkdir -p /env \
+  && chgrp users /env \
+  && chmod g+s /env \
+  && env-build-tool new /tmp/reqs.txt /wheels /env )
 
 
 #################################################################################
